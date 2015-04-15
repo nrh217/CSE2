@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class CSE2Linear{
     
 //define a method
-    public static void main(String [] args){
+public static void main(String [] args){
         
 //prompt user to enter 15 ints
         Scanner myScanner=new Scanner (System.in);
@@ -52,95 +52,76 @@ public class CSE2Linear{
                 }
             }
         }
+        String gradeS="[";
         for (int i=0; i<15; i++){
-            System.out.println(numList[i]);
+            gradeS+=" "+numList[i];
         }
+        System.out.println(gradeS+" ]");
         System.out.println("Enter a number to search for");
         int find = myScanner.nextInt();
-        int start = 0;
-        int end = 15;
-        int index = (end-start)/2;
-        boolean found = false;
-        int i = 0;
-        while((index!=start)&&(index!=end)&&(found==false)){
-            if(find>numList[index]){
-                start = index;
-            }
-            else if(find<numList[index]){
-                end = index;
-            }
-            else {
-                found = true;
-            }
-            index = (end-start)/2;
-            i++;
+        binary(numList,find);
+        scramble(numList);
+        System.out.println("Enter another number to search for");
+        int find2=myScanner.nextInt();
+        linear(numList,find2);
+        
+}
+public static void linear(int []arr,int find){
+    boolean found=false;
+    int it=0;
+    for(int i=0; i<15&&!found; i++){
+        if(arr[i]==find){
+           found=true;
+           it=i;
+        } 
+    }
+    if (found == true){
+            System.out.println(find+" was found in " + it + " iterations");
         }
-        if (found == true){
-            System.out.println("number is found at " + i);
-                
-            }
-        }
-    
-
-        
-    
-
-        // for(int i=0; i<3;i++){
-            
-        //     while(!myScanner.hasNextInt()){
-        //          System.out.println("You did not enter an integer. Try again: ");
-        //          myScanner.next();
-        //     }
-            
-        //     response = myScanner.nextInt();
-            
-        //     while(response<0 || response >100){
-        //         System.out.println("Not between 0-100 Try again");
-                 
-        //          while(!myScanner.hasNextInt()){
-        //             System.out.println("You did not enter an integer. Try again: ");
-        //             myScanner.next();
-        //     }
-            
-        //     response = myScanner.nextInt();
-                 
-        //     }
-            
-        //     numList[i] = response;
-            
-        //     while(i>0 && numList[i] < numList[i-1]){
-        //         System.out.println("Your number was not greater than the previous");
-        //       while(!myScanner.hasNextInt()){
-        //          System.out.println("You did not enter an integer. Try again: ");
-        //          myScanner.next();
-        //     }
-            
-        //     response = myScanner.nextInt();
-            
-        //     while(response<0 || response >100){
-        //         System.out.println("Not between 0-100 Try again");
-                 
-        //          while(!myScanner.hasNextInt()){
-        //             System.out.println("You did not enter an integer. Try again: ");
-        //             myScanner.next();
-        //     }
-            
-        //     response = myScanner.nextInt();
-                 
-        //     }
-            
-        //     numList[i] = response;
-            
-            
-            
-            
-        // }
-        
-        
-        
-        // }
-        // System.out.println(numList);
-        
-        
+        else
+           System.out.println("number not found");
     
 }
+public static void scramble(int []arr){
+    for(int i=0; i<15; i++){
+        int rand=(int)(Math.random()*15);
+        int temp=arr[i];
+        arr[i]=arr[rand];
+        arr[rand]=temp;
+    }
+    String s="[";
+    for(int i=0; i<15; i++){
+        s+=" "+arr[i];
+    }
+    System.out.println(s+" ]");
+} 
+
+public static void binary(int []arr,int find){
+    int start = 0;
+    int end = arr.length-1;
+    int index = (end+start)/2;
+    boolean found = false;
+    int i = 0;
+    while(start<=end){
+        if(find>arr[index]){
+            start = index+1;
+        }
+        else if(arr[index]==find){
+            start=end+1;
+            found=true;
+        }
+        else {
+            end=index-1;
+        }
+        index = (end+start)/2;
+        i++;
+    }
+        if (found == true){
+            System.out.println(find+" was found in " + i + " iterations");
+                
+        }
+        else
+           System.out.println("number not found");
+}
+    
+} 
