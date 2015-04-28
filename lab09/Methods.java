@@ -1,7 +1,7 @@
 //Nick Hochrein
 //March 27
 //Lab 09
-//Factorials Java Program
+//Methods Java Program
 
 //import scanner
 import java.util.Scanner;
